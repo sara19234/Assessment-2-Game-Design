@@ -35,6 +35,12 @@ public class PlayerInteract : MonoBehaviour
             ////Transition to the second one when we want to do damage or something but prob with a game manager 
             //collision.gameObject.SendMessage("ApplyDamage", 10);
         }
+
+        if (collision.gameObject.CompareTag("Goal"))
+        {
+            Debug.Log("You win");
+            //GameManager.Win = True
+        }
     }
 
     private void Respawn()
