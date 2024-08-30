@@ -45,6 +45,10 @@ public class PlayerInteract : MonoBehaviour
 
     private void Respawn()
     {
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
+        SceneManager.LoadScene(3, LoadSceneMode.Single);
+    }
+    public void DeathScreen()
+    {
+       // SceneManager.LoadScene("DeathScreen");
     }
 }
