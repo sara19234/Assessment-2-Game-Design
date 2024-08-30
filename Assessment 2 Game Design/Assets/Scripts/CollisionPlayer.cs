@@ -14,7 +14,11 @@ public class PlayerInteract : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (transform.position.y < -50)
+        {
+            //Debug.Log("Pain");
+            Respawn();
+        }
     }
 
 
@@ -25,7 +29,8 @@ public class PlayerInteract : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Enemy Thouched");
-            SceneManager.LoadScene(0, LoadSceneMode.Single);
+            Respawn();
+            
 
             ////Transition to the second one when we want to do damage or something but prob with a game manager 
             //collision.gameObject.SendMessage("ApplyDamage", 10);
@@ -34,6 +39,6 @@ public class PlayerInteract : MonoBehaviour
 
     private void Respawn()
     {
-
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 }
