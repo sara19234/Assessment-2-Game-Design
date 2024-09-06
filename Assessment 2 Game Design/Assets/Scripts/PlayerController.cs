@@ -6,10 +6,12 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 2000f;
     public float jumpspeed = 200f;
+
+    bool isGrounded;
     // Start is called before the first frame update
     void Start()
     {
-        
+        isGrounded = true;
     }
 
     // Update is called once per frame
@@ -29,16 +31,19 @@ public class PlayerController : MonoBehaviour
         }
         // making the player move left otherwise
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(Vector2.up * jumpspeed);
+            isGrounded = false;
         }
         // making the player move up/jump
         else
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
-
-
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+            isGrounded = true;
     }
 }
