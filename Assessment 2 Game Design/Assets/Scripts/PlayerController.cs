@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
             {
                 projectile.direction = -Vector3.right;
             }
-            bulletInGun = -1;
+            bulletInGun -= 1;
         }
         if( bulletInGun == 0)
         {
