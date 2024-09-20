@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public float jumpspeed = 200f;
     public GameObject projectilePrefab;
     public int bulletInGun = 12;
-
+    public bool noAmmo = false;
 
     bool isGrounded;
     bool facingRight;
@@ -62,10 +62,10 @@ public class PlayerController : MonoBehaviour
             }
             bulletInGun = -1;
         }
-        else if (Input.GetMouseButtonDown(0) & bulletInGun == 0)
+        if( bulletInGun == 0)
         {
             //Luke need to integrate into ui if u can thanks   
-            Debug.Log("No more ammo");
+            noAmmo = true;
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
