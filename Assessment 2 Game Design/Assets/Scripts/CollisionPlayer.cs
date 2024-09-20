@@ -39,6 +39,7 @@ public class PlayerInteract : MonoBehaviour
         if (collision.gameObject.CompareTag("Goal"))
         {
             Debug.Log("You win");
+            Respawn();
             //GameManager.Win = True
         }
     }
