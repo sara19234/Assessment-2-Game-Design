@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public GameObject projectilePrefab;
     public int bulletInGun = 12;
     public bool noAmmo = false;
+    public Text ammoDisplay;
 
     bool isGrounded;
     bool facingRight;
@@ -21,6 +23,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ammoDisplay.text = bulletInGun.ToString("Ammo" + bulletInGun);
+
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
         if (Input.GetKey(KeyCode.D))
