@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 2000f;
     public float jumpspeed = 200f;
     public GameObject projectilePrefab;
+    public int bulletInGun = 12;
 
 
     bool isGrounded;
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) & bulletInGun > 0)
         {
             GameObject newProjectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             Projectile projectile = newProjectile.GetComponent<Projectile>();
@@ -59,6 +60,12 @@ public class PlayerController : MonoBehaviour
             {
                 projectile.direction = -Vector3.right;
             }
+            bulletInGun = -1;
+        }
+        else if (Input.GetMouseButtonDown(0) & bulletInGun == 0)
+        {
+            //Luke need to integrate into ui if u can thanks   
+            Debug.Log("No more ammo");
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
