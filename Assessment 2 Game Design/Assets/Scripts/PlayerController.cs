@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ammoDisplay.text = bulletInGun.ToString("Ammo " + bulletInGun);
+        ammoDisplay.text = bulletInGun.ToString("Ammo " + bulletInGun.ToString());
 
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
