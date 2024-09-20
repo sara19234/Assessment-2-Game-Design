@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public GameObject projectilePrefab;
     public int bulletInGun = 12;
     public bool noAmmo = false;
-    public Text ammoDisplay;
+    //public Text ammoDisplay;
 
     bool isGrounded;
     bool facingRight;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ammoDisplay.text = bulletInGun.ToString("Ammo " + bulletInGun.ToString());
+        //ammoDisplay.text = bulletInGun.ToString("Ammo " + bulletInGun.ToString());
 
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
