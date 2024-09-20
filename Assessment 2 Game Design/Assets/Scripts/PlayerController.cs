@@ -9,22 +9,35 @@ public class PlayerController : MonoBehaviour
     public float jumpspeed = 200f;
     public GameObject projectilePrefab;
     public int bulletInGun = 12;
+<<<<<<< Updated upstream
     public bool noAmmo = false;
     public Text ammoDisplay;
+=======
+    private float dirX;
+    public Animator anim;
+    public SpriteRenderer sprite;
+>>>>>>> Stashed changes
 
     bool isGrounded;
     bool facingRight;
     // Start is called before the first frame update
+
+    private enum MovementState { Walking, Idle, Shooting }
     void Start()
     {
         isGrounded = true;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+<<<<<<< Updated upstream
         ammoDisplay.text = bulletInGun.ToString("Ammo" + bulletInGun);
 
+=======
+        dirX = Input.GetAxis("Horizontal");
+>>>>>>> Stashed changes
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
         if (Input.GetKey(KeyCode.D))
@@ -76,4 +89,34 @@ public class PlayerController : MonoBehaviour
     {
             isGrounded = true;
     }
+
+    private void UpdateAnimationState()
+    {
+        MovementState state;
+
+        if(dirX > 0f)
+        {
+            sprite.flipX = false;
+        }
+
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+        {
+            state = MovementState.Walking;
+        }
+        else
+        {
+            state = MovementState.Idle;
+        }
+            
+
+        
+
+
+
+
+
+
+        anim.SetInteger("state", (int)state);
+    }
+       
 }
