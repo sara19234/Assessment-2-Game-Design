@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,12 +9,16 @@ public class PlayerController : MonoBehaviour
     public float speed = 2000f;
     public float jumpspeed = 200f;
     public GameObject projectilePrefab;
+    public GameObject pauseMenu;
     public int bulletInGun = 12;
     public bool noAmmo = false;
     public Text ammoDisplay;
 
     bool isGrounded;
     bool facingRight;
+    public bool ifPaused;
+    private bool ifUnpaused;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +76,26 @@ public class PlayerController : MonoBehaviour
             //Luke need to integrate into ui if u can thanks   
             noAmmo = true;
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (!ifPaused)
+            {
+                Time.timeScale = 0;
+                ifPaused = true;
+                pauseMenu.SetActive(true);
+
+            }
+
+            else
+            {
+                Time.timeScale = 1;
+                ifPaused = false;
+                pauseMenu.SetActive(false);
+            }
+
+        }
+
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
