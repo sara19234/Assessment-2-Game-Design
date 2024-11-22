@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
 
-        if (Input.GetMouseButtonDown(0) & bulletInGun > 0)
+        if (Input.GetMouseButtonDown(0) & bulletInGun > 0 & ifPaused == false)
         {
             GameObject newProjectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             Projectile projectile = newProjectile.GetComponent<Projectile>();
@@ -97,6 +97,13 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    public void resumeGame()
+    {
+        Time.timeScale = 1;
+        ifPaused = false;
+        pauseMenu.SetActive(false);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
             isGrounded = true;
