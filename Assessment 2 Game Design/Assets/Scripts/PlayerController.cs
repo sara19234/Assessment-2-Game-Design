@@ -6,13 +6,18 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 2000f;
+    public float moveSpeed = 6f;
     public float jumpspeed = 200f;
     public GameObject projectilePrefab;
     public GameObject pauseMenu;
     public int bulletInGun = 12;
     public bool noAmmo = false;
     public Text ammoDisplay;
+    public SpriteRenderer sprite;
+    private Animator animate;
+    public Rigidbody2D rb;
+
+    Vector2 movement;
 
     bool isGrounded;
     bool facingRight;
@@ -22,6 +27,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animate = gameObject.GetComponent<Animator>();
+
         isGrounded = true;
     }
 
@@ -30,20 +37,22 @@ public class PlayerController : MonoBehaviour
     {
         ammoDisplay.text = bulletInGun.ToString("Ammo " + bulletInGun.ToString());
 
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+        //animate.SetFloat("Speed", Mathf.Abs(movement.x));
 
-        if (Input.GetKey(KeyCode.D))
+        if (movement.x < 0 && facingRight)
         {
-            rb.AddForce(Vector2.right * speed * Time.deltaTime);
-            facingRight = true;
-        }
-        // making the player move right
 
-        else if (Input.GetKey(KeyCode.A))
-        {
-            rb.AddForce(Vector2.left * speed * Time.deltaTime);
-            facingRight = false;
+            GetComponent<SpriteRenderer>().flipX = true;
+
         }
+        else if (movement.x > 0 && !facingRight)
+        {
+
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+
         // making the player move left otherwise
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
@@ -61,17 +70,19 @@ public class PlayerController : MonoBehaviour
         {
             GameObject newProjectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             Projectile projectile = newProjectile.GetComponent<Projectile>();
-            if(facingRight)
+            if (facingRight)
             {
+
                 projectile.direction = Vector3.right;
             }
             else
             {
+
                 projectile.direction = -Vector3.right;
             }
             bulletInGun -= 1;
         }
-        if( bulletInGun == 0)
+        if (bulletInGun == 0)
         {
             //Luke need to integrate into ui if u can thanks   
             noAmmo = true;
@@ -97,8 +108,28 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+
+
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-            isGrounded = true;
+        isGrounded = true;
     }
+
+    void Flip()
+    {
+        Vector3 currentScale = gameObject.transform.localScale;
+        currentScale.x *= -1;
+        gameObject.transform.localScale = currentScale;
+
+        facingRight = !facingRight;
+    }
+
+
+
 }
